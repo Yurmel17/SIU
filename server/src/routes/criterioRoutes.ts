@@ -10,7 +10,8 @@ class IndexCriterio {
   }
 
   config(): void {
-    this.router.get("/", criterioController.index);
+    this.router.get("/", criterioController.listar);
+    this.router.get("/:idCriterio_Admision", criterioController.buscar);
   }
 }
 

@@ -10,7 +10,8 @@ class IndexPuntaje {
   }
 
   config(): void {
-    this.router.get("/", puntajeController.index);
+    this.router.get("/", puntajeController.listar);
+    this.router.get("/:idPuntaje", puntajeController.buscar);
   }
 }
 

@@ -3,8 +3,8 @@ import morgan from "morgan";
 import cors from "cors";
 
 import indexRoutes from "./routes/indexRoutes";
-import indexPuntaje from "./routes/indexPuntaje";
-import indexCriterio from "./routes/indexCriterio";
+import indexPuntaje from "./routes/puntajeRoutes";
+import indexCriterio from "./routes/criterioRoutes";
 
 class Server {
   public app: Application;

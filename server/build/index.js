@@ -7,8 +7,8 @@ const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
-const indexPuntaje_1 = __importDefault(require("./routes/indexPuntaje"));
-const indexCriterio_1 = __importDefault(require("./routes/indexCriterio"));
+const puntajeRoutes_1 = __importDefault(require("./routes/puntajeRoutes"));
+const criterioRoutes_1 = __importDefault(require("./routes/criterioRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -24,8 +24,8 @@ class Server {
     }
     routes() {
         this.app.use("/", indexRoutes_1.default);
-        this.app.use("/api/SIU/criterio", indexCriterio_1.default);
-        this.app.use("/api/SIU/puntaje", indexPuntaje_1.default);
+        this.app.use("/api/SIU/criterio", criterioRoutes_1.default);
+        this.app.use("/api/SIU/puntaje", puntajeRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get("port"), () => {
