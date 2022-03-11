@@ -1,725 +1,355 @@
+DROP DATABASE IF EXISTS `SIU_DB`;
 CREATE DATABASE SIU_DB;
 USE SIU_DB;
-CREATE TABLE `siu_db`.`puntaje_linea_corte` (
-  `idPuntaje` INT NOT NULL,
-  `idCarrera` INT NOT NULL,
-  `nombreCarrera` VARCHAR(45) NOT NULL,
-  `puntajeMínimo` FLOAT NOT NULL,
-  `año` INT NOT NULL,
-  `semestre` INT NOT NULL,
-  PRIMARY KEY (`idCarrera`)
+
+CREATE TABLE `siu_db`.`Aspirante` (
+	`id` INT NOT NULL,
+	`fecha_consulta` DATE NOT NULL,
+	PRIMARY KEY (`id`)
 );
-CREATE TABLE `siu_db`.`criterio_admision` (
-  `idCriterio_Admision` INT NOT NULL,
-  `idCarrera` INT NOT NULL,
+
+CREATE TABLE `siu_db`.`Puntaje` (
+    `aspirante_id` INT NOT NULL,
+	`puntajeCN` FLOAT NOT NULL,
+	`puntajeLC` FLOAT NOT NULL,
+	`puntajeMA` FLOAT NOT NULL,
+	`puntajeSC` FLOAT NOT NULL,
+	`puntajeIN` FLOAT NOT NULL,
+	PRIMARY KEY (`aspirante_id`),
+	FOREIGN KEY (`aspirante_id`) REFERENCES `siu_db`.`Aspirante` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE `siu_db`.`Carrera` (
+	`id` INT NOT NULL,
+	`nombreCarrera` VARCHAR(90) NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `siu_db`.`PuntajeCorte` (
+  `id` INT NOT NULL,
+  `carrera_id` INT NOT NULL,
+  `puntajeMinimo` FLOAT NOT NULL,
+  `anio` INT NOT NULL,
+  `periodo` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`carrera_id`) REFERENCES `siu_db`.`Carrera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+CREATE TABLE `siu_db`.`CriterioAdmision` (
+  `id` INT NOT NULL,
+  `carrera_id` INT NOT NULL,
   `porcentajeCN` FLOAT NOT NULL,
   `porcentajeLC` FLOAT NOT NULL,
-  `porcentajeM` FLOAT NOT NULL,
-  `porcentajeCS` FLOAT NOT NULL,
-  `porcentajeI` FLOAT NOT NULL,
-  PRIMARY KEY (`idCriterio_Admision`),
-  INDEX `idCarrera_idx` (`idCarrera` ASC) VISIBLE,
-  CONSTRAINT `idCarrera` FOREIGN KEY (`idCarrera`) REFERENCES `siu_db`.`puntaje_linea_corte` (`idCarrera`) ON DELETE CASCADE ON UPDATE CASCADE
+  `porcentajeMA` FLOAT NOT NULL,
+  `porcentajeSC` FLOAT NOT NULL,
+  `porcentajeIN` FLOAT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `idCarrera_idx` (`carrera_id` ASC) VISIBLE,
+  FOREIGN KEY (`carrera_id`) REFERENCES `siu_db`.`Carrera` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (1, 1, 'Ingenieria Civil', 68.9, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (2, 2, 'Ingenieria Industrial', 65.3, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (3, 3, 'Ingenieria Mecanica', 50.0, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (4, 4, 'Ingenieria Electronica', 58.3, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (5, 5, 'Ingenieria de Sistemas', 61.9, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (6, 6, 'Ingenieria Electrica', 62.5, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (7, 7, 'Ingenieria Industrial', 63.8, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (8, 8, 'Ingenieria de Petroleos', 47.2, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (9, 9, 'Geologia', 68.7, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (10, 10, 'Ingenieria Quimica', 60.2, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (11, 11, 'Ingenieria Metalurgica', 54.4, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (12, 12, 'Biologia', 68.1, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (13, 13, 'Quimica', 51.8, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (14, 14, 'Fisica', 59.7, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (15, 15, 'Matematicas', 54.5, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (
-    16,
-    16,
-    'Licenciatura en Matematicas',
-    43.9,
-    2018,
-    2
-  );
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (17, 17, 'Medicina', 78.5, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (
-    18,
-    18,
-    'Microbiologia y Bioanalisis',
-    70.3,
-    2018,
-    2
-  );
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (19, 19, 'Enfermeria', 64.95, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (20, 20, 'Nutricion y Dietetica', 65.5, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (21, 21, 'Fisioterapia', 65.05, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (22, 22, 'Derecho', 63.2, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (23, 23, 'Trabajo Social', 62.3, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (24, 24, 'Economia', 62.75, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (
-    25,
-    25,
-    'Lic. en Literatura y Lengua Castellana',
-    57.65,
-    2018,
-    2
-  );
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (26, 26, 'Licenciatura en Musica', 60.0, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (27, 27, 'Filosofia', 42.4, 2018, 2);
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (
-    28,
-    28,
-    'Lic. en Lenguas Extranjeras',
-    71.4,
-    2018,
-    2
-  );
-INSERT INTO
-  puntaje_linea_corte (
-    idPuntaje,
-    idCarrera,
-    nombreCarrera,
-    puntajeM í nimo,
-    a ñ o,
-    semestre
-  )
-VALUES
-  (
-    29,
-    29,
-    'Historia y Archivistica',
-    55.85,
-    2018,
-    2
-  );
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (1, 1, 0.3, 0.2, 0.3, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (2, 2, 0.25, 0.2, 0.25, 0.15, 0.15);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (3, 3, 0.3, 0.1, 0.4, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (4, 4, 0.3, 0.2, 0.3, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (5, 5, 0.25, 0.2, 0.25, 0.15, 0.15);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (6, 6, 0.3, 0.2, 0.3, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (7, 7, 0.3, 0.2, 0.3, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (8, 8, 0.3, 0.2, 0.3, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (9, 9, 0.3, 0.2, 0.3, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (10, 10, 0.3, 0.2, 0.3, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (11, 11, 0.3, 0.2, 0.3, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (12, 12, 0.35, 0.2, 0.25, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (13, 13, 0.4, 0.15, 0.25, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (14, 14, 0.2, 0.25, 0.25, 0.2, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (15, 15, 0.1, 0.2, 0.5, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (16, 16, 0.1, 0.2, 0.5, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (17, 17, 0.3, 0.25, 0.2, 0.15, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (18, 18, 0.4, 0.2, 0.2, 0.1, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (19, 19, 0.3, 0.2, 0.15, 0.2, 0.15);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (20, 20, 0.3, 0.2, 0.2, 0.2, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (21, 21, 0.4, 0.2, 0.15, 0.15, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (22, 22, 0.1, 0.4, 0.2, 0.2, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (23, 23, 0.1, 0.4, 0.1, 0.3, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (24, 24, 0.1, 0.25, 0.3, 0.25, 0.1);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (25, 25, 0.1, 0.4, 0.15, 0.2, 0.15);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (26, 26, 0.1, 0.3, 0.2, 0.2, 0.2);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (27, 27, 0.2, 0.2, 0.2, 0.2, 0.2);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (28, 28, 0.1, 0.25, 0.1, 0.2, 0.35);
-INSERT INTO
-  criterio_admision (
-    idCriterio_Admision,
-    idCarrera,
-    porcentajeCN,
-    porcentajeLC,
-    porcentajeM,
-    porcentajeCS,
-    porcentajeI
-  )
-VALUES
-  (29, 29, 0.1, 0.35, 0.2, 0.25, 0.1);
+
+CREATE TABLE `siu_db`.`PuntajePonderado` (
+	`id` INT NOT NULL,
+	`puntaje_id` INT NOT NULL,
+    `pun_pond` FLOAT NOT NULL,
+	PRIMARY KEY (`id`),
+    FOREIGN KEY (`puntaje_id`) REFERENCES `siu_db`.`Puntaje` (`aspirante_id`) ON DELETE CASCADE ON UPDATE CASCADE
+    );
+
+CREATE TABLE `siu_db`.`SalarioMinimo` (
+	`anio` INT NOT NULL,
+	`valor` FLOAT NOT NULL,
+	PRIMARY KEY (`anio`)
+    );
+    
+CREATE TABLE `siu_db`.`CriterioMatricula` (
+	`aspirante_id` INT NOT NULL,
+    `tipocolegio` BLOB NOT NULL,
+	`valorPension` INT NOT NULL,
+	`anioGrado` INT NOT NULL,
+	`estrato` INT NOT NULL,
+    `ingresosAnuales` INT NOT NULL,
+	PRIMARY KEY (`aspirante_id`),
+	FOREIGN KEY (`aspirante_id`) REFERENCES `siu_db`.`Aspirante` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+    );
+ show tables ;   
+INSERT INTO Carrera(id, nombreCarrera)
+VALUES  
+	(1, 'Ingeniería de Sistemas'),
+	(2, 'Ingeniería Civil'),
+    (3, 'Ingeniería Eléctrica'),
+    (4, 'Ingeniería Industrial'),
+    (5, 'Ingeniería Mecánica'),
+    (6, 'Ingeniería Electrónica'),
+    (7, 'Diseño Industrial'),
+    (8, 'Ingeniería Metalúrgica'),
+    (9, 'Ingeniería de Petróleos'),
+    (10, 'Ingeniería Química'),
+    (11, 'Geología'),
+    (12, 'Licenciatura en Matemáticas'),
+    (13, 'Química'),
+    (14, 'Biología'),
+    (15, 'Matemáticas'),
+    (16, 'Física'),
+    (17, 'Enfermería'),
+    (18, 'Medicina'),
+    (19, 'Fisioterapia'),
+    (20, 'Nutrición y Dietética'),
+    (21, 'Microbiología y Bioanálisis'),
+    (22, 'Trabajo Social'),
+    (23, 'Economía'),
+    (24, 'Derecho'),
+    (25, 'Licenciatura en música'),
+    (26, 'Filosofía'),
+    (27, 'Historia y archivística'),
+    (28, 'Lic. en Lenguas Extranjeras con énfasis en Inglés'),
+    (29, 'Lic. en Literatura y Lengua Castellana'),
+    (30, 'Lic. en Educación Básica Primaria');
+    
+
+    
+INSERT INTO CriterioAdmision(id, carrera_id, porcentajeCN, porcentajeLC, porcentajeMA, porcentajeSC, porcentajeIN)
+VALUES  
+	(1, 1, 0.25, 0.20, 0.35, 0.10, 0.10),
+	(2, 2, 0.30, 0.20, 0.30, 0.10, 0.10),
+    (3, 3, 0.30, 0.20, 0.30, 0.10, 0.10),
+    (4, 4, 0.25, 0.20, 0.25, 0.15, 0.15),
+    (5, 5, 0.30, 0.10, 0.40, 0.10, 0.10),
+    (6, 6, 0.30, 0.20, 0.30, 0.10, 0.10),
+    (7, 7, 0.30, 0.20, 0.30, 0.10, 0.10),
+    (8, 8, 0.30, 0.20, 0.30, 0.10, 0.10),
+    (9, 9, 0.30, 0.20, 0.30, 0.10, 0.10),
+    (10, 10, 0.30, 0.20, 0.30, 0.10, 0.10),
+    (11, 11, 0.30, 0.20, 0.30, 0.10, 0.10),
+    (12, 12, 0.10, 0.20, 0.50, 0.10, 0.10),
+    (13, 13, 0.40, 0.15, 0.25, 0.10, 0.10),
+    (14, 14, 0.35, 0.20, 0.25, 0.10, 0.10),
+    (15, 15, 0.10, 0.20, 0.50, 0.10, 0.10),
+    (16, 16, 0.20, 0.25, 0.25, 0.20, 0.10),
+    (17, 17, 0.30, 0.20, 0.15, 0.20, 0.15),
+    (18, 18, 0.30, 0.25, 0.20, 0.15, 0.10),
+    (19, 19, 0.40, 0.20, 0.15, 0.15, 0.10),
+    (20, 20, 0.30, 0.20, 0.20, 0.20, 0.10),
+    (21, 21, 0.40, 0.20, 0.20, 0.10, 0.10),
+    (22, 22, 0.10, 0.40, 0.10, 0.30, 0.10),
+    (23, 23, 0.10, 0.25, 0.30, 0.25, 0.10),
+    (24, 24, 0.10, 0.40, 0.20, 0.20, 0.10),
+    (25, 25, 0.10, 0.30, 0.20, 0.20, 0.20),
+    (26, 26, 0.20, 0.20, 0.20, 0.20, 0.20),
+    (27, 27, 0.10, 0.35, 0.20, 0.25, 0.10),
+    (28, 28, 0.10, 0.25, 0.10, 0.20, 0.35),
+    (29, 29, 0.10, 0.40, 0.15, 0.20, 0.15),
+    (30, 30, 0.22, 0.22, 0.22, 0.22, 0.12);
+    
+INSERT INTO PuntajeCorte(id, carrera_id, puntajeMinimo, anio, periodo)
+VALUES 
+ 
+	(1, 1, 67.60, 2019, 2),
+    (2, 1, 70.90, 2020, 1),
+    (3, 1, 57.45, 2020, 2),
+    (4, 1, 71.85, 2021, 1),
+    (5, 1, 65.85, 2021, 2),
+    (6, 1, 72.55, 2022, 1),
+    
+	(7, 2, 69.10, 2019, 2),
+    (8, 2, 72.80, 2020, 1),
+    (9, 2, 61.20, 2020, 2),
+    (10, 2, 70.20, 2021, 1),
+    (11, 2, 64.70, 2021, 2),
+    (12, 2, 70.40, 2022, 1),
+    
+    
+    (13, 3, 65.40, 2019, 2),
+    (14, 3, 69.30, 2020, 1),
+    (15, 3, 52.50, 2020, 2),
+    (16, 3, 66.50, 2021, 1),
+    (17, 3, 56.40, 2021, 2),
+    (18, 3, 66.10, 2022, 1),
+    
+    (19, 4, 68.85, 2019, 2),
+    (20, 4, 71.40, 2020, 1),
+    (21, 4, 63.00, 2020, 2),
+    (22, 4, 68.95, 2021, 1),
+    (23, 4, 64.75, 2021, 2),
+    (24, 4, 69.45, 2022, 1),
+    
+    (25, 5, 67.20, 2019, 2),
+    (26, 5, 72.70, 2020, 1),
+    (27, 5, 51.20, 2020, 2),
+    (28, 5, 69.60, 2021, 1),
+    (29, 5, 60.00, 2021, 2),
+    (30,  5, 69.80, 2022, 1),
+    
+    (31, 6, 64.50, 2019, 2),
+    (32, 6, 70.50, 2020, 1),
+    (33, 6, 52.40, 2020, 2),
+    (34, 6, 68.40, 2021, 1),
+    (35, 6, 58.70, 2021, 2),
+    (36, 6, 69.20, 2022, 1),
+    
+    (37, 7, 68.20, 2019, 2),
+    (38, 7, 69.30, 2020, 1),
+    (39, 7, 66.70, 2020, 2),
+    (40, 7, 69.30, 2021, 1),
+    (41, 7, 65.10, 2021, 2),
+    (42, 7, 68.20, 2022, 1),
+    
+    (43, 8, 63.80, 2019, 2),
+    (44, 8, 66.60, 2020, 1),
+    (45, 8, 56.40, 2020, 2),
+    (46, 8, 60.90, 2021, 1),
+    (47, 8, 43.90, 2021, 2),
+    (48, 8, 60.20, 2022, 1),
+    
+    (49, 9, 64.30, 2019, 2),
+    (50, 9, 67.80, 2020, 1),
+    (51, 9, 47.60, 2020, 2),
+    (52, 9, 63.40, 2021, 1),
+    (53, 9, 49.10, 2021, 2),
+    (54, 9, 60.40, 2022, 1),
+    
+    (55, 10, 67.90, 2019, 2),
+    (56, 10, 72.10, 2020, 1),
+    (57, 10, 58.50, 2020, 2),
+    (58, 10, 71.40, 2021, 1),
+    (59, 10, 62.70, 2021, 2),
+    (60, 10, 69.50, 2022, 1),
+    
+    (61, 11, 69.10, 2019, 2),
+    (62, 11, 71.90, 2020, 1),
+    (63, 11, 46.70, 2020, 2),
+    (64, 11, 70.80, 2021, 1),
+    (65, 11, 65.40, 2021, 2),
+    (66, 11, 68.20, 2022, 1),
+    
+    (67, 12, 60.00, 2019, 2),
+    (68, 12, 65.30, 2020, 1),
+    (69, 12, 40.30, 2020, 2),
+    (70, 12, 60.30, 2021, 1),
+    (71, 12, 51.00, 2021, 2),
+    (72, 12, 60.40, 2022, 1),
+    
+    (73, 13, 67.25, 2019, 2),
+    (74, 13, 70.65, 2020, 1),
+    (75, 13, 51.75, 2020, 2),
+    (76, 13, 68.20, 2021, 1),
+    (77, 13, 60.85, 2021, 2),
+    (78, 13, 67.70, 2022, 1),
+    
+    (79, 14, 71.85, 2019, 2),
+    (80, 14, 71.65, 2020, 1),
+    (81, 14, 70.82, 2020, 2),
+    (82, 14, 70.00, 2021, 1),
+    (83, 14, 71.00, 2021, 2),
+    (84, 14, 69.65, 2022, 1),
+    
+    (85, 15, 63.30, 2019, 2),
+    (86, 15, 68.60, 2020, 1),
+    (87, 15, 58.50, 2020, 2),
+    (88, 15, 62.40, 2021, 1),
+    (89, 15, 57.80, 2021, 2),
+    (90, 15, 59.80, 2022, 2),
+    
+    (91, 16, 72.50, 2019, 2),
+    (92, 16, 74.10, 2020, 1),
+    (93, 16, 72.75, 2020, 2),
+    (94, 16, 71.40, 2021, 1),
+    (95, 16, 67.30, 2021, 2),
+    (96, 16, 70.85, 2022, 1),
+    
+    (97, 17, 70.85, 2019, 2),
+    (98, 17, 71.55, 2020, 1),
+    (99, 17, 70.77, 2020, 2),
+    (100, 17, 70.00, 2021, 1),
+    (101, 17, 69.10, 2021, 1),
+    (102, 17, 71.00, 2022, 1),
+    
+    (103, 18, 81.50, 2019, 2),
+    (104, 18, 79.25, 2020, 1),
+    (105, 18, 80.55, 2020, 2),
+    (106, 18, 81.85, 2021, 1),
+    (107, 18, 80.80, 2021, 2),
+    (108, 18, 81.55, 2022, 1),
+    
+    (109, 19, 71.15, 2019, 2),
+    (110, 19, 70.00, 2020, 1),
+    (111, 19, 69.80, 2020, 2),
+    (112, 19, 70.75, 2021, 1),
+    (113, 19, 67.85, 2021, 2),
+    (114, 19, 68.95, 2022, 1),
+    
+    (115, 20, 71.20, 2019, 2),
+    (116, 20, 71.60, 2020, 1),
+    (117, 20, 71.40, 2020, 2),
+    (118, 20, 71.20, 2021, 1),
+    (119, 20, 69.60, 2021, 2),
+    (120, 20, 70.90, 2022, 1),
+    
+    (121, 21, 72.80, 2019, 2),
+    (122, 21, 75.30, 2020, 1),
+    (123, 21, 74.55, 2020, 2),
+    (124, 21, 73.80, 2021, 1),
+    (125, 21, 72.20, 2021, 2),
+    (126, 21, 74.50, 2022, 1),
+    
+    (127, 22, 67.00, 2019, 2),
+    (128, 22, 68.10, 2020, 1),
+    (129, 22, 64.20, 2020, 2),
+    (130, 22, 67.50, 2021, 1),
+    (131, 22, 64.60, 2021, 2),
+    (132, 22, 66.70, 2022, 1),
+    
+    (133, 23, 68.10, 2019, 2),
+    (134, 23, 70.05, 2020, 1),
+    (135, 23, 55.30, 2020, 2),
+    (136, 23, 68.85, 2021, 1),
+    (137, 23, 65.70, 2021, 2),
+    (138, 23, 69.00, 2022, 1),
+    
+    (139, 24, 70.30, 2019, 2),
+    (140, 24, 72.30, 2020, 1),
+    (141, 24, 67.10, 2020, 2),
+    (142, 24, 71.50, 2021, 1),
+    (143, 24, 68.20, 2021, 2),
+    (144, 24, 70.70, 2022, 1),
+    
+    (145, 25, 60.00, 2019, 2),
+    (146, 25, 65.50, 2020, 1),
+    (147, 25, 62.17, 2020, 2),
+    (148, 25, 60.02, 2021, 1),
+    (149, 25, 60.00, 2021, 2),
+    (150, 25, 60.50, 2022, 1),
+    
+    (151, 26, 57.00, 2019, 2),
+    (152, 26, 60.00, 2020, 1),
+    (153, 26, 51.20, 2020, 2),
+    (154, 26, 56.80, 2021, 1),
+    (155, 26, 51.20, 2021, 2),
+    (156, 26, 41.00, 2022, 1),
+    
+    (157, 27, 66.85, 2019, 2),
+    (158, 27, 68.90, 2020, 1),
+    (159, 27, 64.3, 2020, 2),
+    (160, 27, 60.30, 2021, 1),
+    (161, 27, 62.70, 2021, 2),
+    (162, 27, 63.90, 2022, 1),
+    
+    (163, 28, 72.35, 2019, 2),
+    (164, 28, 73.15, 2020, 1),
+    (165, 28, 70.25, 2020, 2),
+    (166, 28, 74.05, 2021, 1),
+    (167, 28, 70.60, 2021, 2),
+    (168, 28, 73.90, 2022, 1),
+    
+    (169, 29, 65.95, 2019, 2),
+    (170, 29, 67.25, 2020, 1),
+    (171, 29, 59.20, 2020, 2),
+    (172, 29, 66.50, 2021, 1),
+    (173, 29, 61.50, 2021, 2),
+    (174, 29, 65.55, 2022, 2),
+    
+    (175, 30, 66.42, 2019, 2),
+	(176, 30, 63.72, 2020, 1),
+    (177, 30, 61.26, 2020, 2),
+    (178, 30, 62.41, 2021, 1),
+    (179, 30, 63.56, 2021, 2),
+    (180, 30, 60.90, 2022, 2);
