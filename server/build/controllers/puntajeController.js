@@ -16,7 +16,7 @@ const database_1 = __importDefault(require("../database"));
 class PuntajeController {
     listar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const puntaje = yield database_1.default.query("SELECT * FROM puntaje_linea_corte", [
+            const puntaje = yield database_1.default.query("SELECT * FROM PuntajeCorte", [
                 req.body,
             ]);
             res.json(puntaje);
@@ -25,9 +25,9 @@ class PuntajeController {
     buscar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { idPuntaje } = req.params;
-            const puntaje_id = yield database_1.default.query("SELECT * FROM puntaje_linea_corte WHERE idPuntaje = ?", [idPuntaje]);
+            const puntaje_id = yield database_1.default.query("SELECT * FROM PuntajeCorte WHERE carrera_id = ?", [idPuntaje]);
             if (puntaje_id.length > 0) {
-                return res.json(puntaje_id[0]);
+                return res.json(puntaje_id);
             }
             res.status(404).json({ Text: "No se encontró el puntaje de la carrera" });
         });

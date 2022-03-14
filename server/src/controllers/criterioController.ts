@@ -4,7 +4,7 @@ import pool from "../database";
 
 class CriterioController {
   public async listar(req: Request, res: Response): Promise<void> {
-    const criterio = await pool.query("SELECT * FROM criterio_admision", [
+    const criterio = await pool.query("SELECT * FROM CriterioAdmision", [
       req.body,
     ]);
     res.json(criterio);
@@ -13,7 +13,7 @@ class CriterioController {
   public async buscar(req: Request, res: Response): Promise<any> {
     const { idCriterio_Admision } = req.params;
     const criterio_admision = await pool.query(
-      "SELECT * FROM criterio_admision WHERE idCriterio_Admision = ?",
+      "SELECT * FROM CriterioAdmision WHERE id = ?",
       [idCriterio_Admision]
     );
     if (criterio_admision.length > 0) {

@@ -13,27 +13,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
-class CriterioController {
+class CarreraController {
     listar(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const criterio = yield database_1.default.query("SELECT * FROM CriterioAdmision", [
+            const nameCarrera = yield database_1.default.query("SELECT nombreCarrera FROM Carrera", [
                 req.body,
             ]);
-            res.json(criterio);
-        });
-    }
-    buscar(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const { idCriterio_Admision } = req.params;
-            const criterio_admision = yield database_1.default.query("SELECT * FROM CriterioAdmision WHERE id = ?", [idCriterio_Admision]);
-            if (criterio_admision.length > 0) {
-                return res.json(criterio_admision[0]);
-            }
-            res
-                .status(404)
-                .json({ Text: "No se encontró el criterio de admision de la carrera" });
+            res.json(nameCarrera);
         });
     }
 }
-const criterioController = new CriterioController();
-exports.default = criterioController;
+const carreraController = new CarreraController();
+exports.default = carreraController;

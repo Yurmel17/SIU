@@ -5,6 +5,7 @@ import cors from "cors";
 import indexRoutes from "./routes/indexRoutes";
 import indexPuntaje from "./routes/puntajeRoutes";
 import indexCriterio from "./routes/criterioRoutes";
+import indexCarrera from "./routes/carreraRoutes";
 
 class Server {
   public app: Application;
@@ -27,6 +28,7 @@ class Server {
     this.app.use("/", indexRoutes);
     this.app.use("/api/SIU/criterio", indexCriterio);
     this.app.use("/api/SIU/puntaje", indexPuntaje);
+    this.app.use("/api/SIU/carrera", indexCarrera);
   }
 
   start(): void {

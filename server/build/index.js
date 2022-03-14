@@ -9,6 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 const puntajeRoutes_1 = __importDefault(require("./routes/puntajeRoutes"));
 const criterioRoutes_1 = __importDefault(require("./routes/criterioRoutes"));
+const carreraRoutes_1 = __importDefault(require("./routes/carreraRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -26,6 +27,7 @@ class Server {
         this.app.use("/", indexRoutes_1.default);
         this.app.use("/api/SIU/criterio", criterioRoutes_1.default);
         this.app.use("/api/SIU/puntaje", puntajeRoutes_1.default);
+        this.app.use("/api/SIU/carrera", carreraRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get("port"), () => {
