@@ -13,6 +13,7 @@ class IndexCriterio {
     config() {
         this.router.get("/", criterioController_1.default.listar);
         this.router.get("/:idCriterio_Admision", criterioController_1.default.buscar);
+        this.router.get("/comparacion/:idCriterio_Admision", criterioController_1.default.comparar);
     }
 }
 const indexCriterio = new IndexCriterio();
