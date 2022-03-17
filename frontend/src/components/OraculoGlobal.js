@@ -5,8 +5,8 @@ class Stuff extends Component {
     return (
       <div class="container">
         <div>
-          <h2>¿A qué carrera paso?</h2><br/>
-          <p>A continuación ingrese su puntaje obtenido por cada competencia:</p><br/>
+          <h2 class="titleG">¿A qué carrera paso?</h2><br/>
+          <h5>A continuación ingrese su puntaje obtenido por cada competencia:</h5><br/>
         </div>
         
         <form class="needs-validation" novalidate>
@@ -46,7 +46,7 @@ class Stuff extends Component {
                 Por favor ingrese un valor numérico
               </div>
             </div>
-            <button class="btn btn-primary botonClic" type="submit" id="oraculo">¿Paso?</button>
+            <button class="btn btn-primary paso" type="submit" id="oraculo">¿Paso?</button>
           </div>
         </form>
 
