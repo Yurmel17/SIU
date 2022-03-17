@@ -1,15 +1,53 @@
+import axios from "axios";
 import React, { Component } from "react";
+import { cookieStorage } from "../utils/storage";
+// 
+const API_URL = "http://localhost:8000";
+
+
 
 class Stuff extends Component {
+  
+  puntajePonderado;
+
+  async handleSubmit(event){
+    event.preventDefault();
+    const puntajeCN = document.getElementById("puntajeCN").value;
+    const puntajeLC = document.getElementById("puntajeLC").value;
+    const puntajeMA = document.getElementById("puntajeMA").value;
+    const puntajeSC = document.getElementById("puntajeSC").value;
+    const puntajeIN = document.getElementById("puntajeIN").value;
+    console.log({puntajeCN, puntajeIN, puntajeLC, API_URL})
+    await axios.post(
+      `${API_URL}/puntaje/`, 
+      {
+        puntajeCN,
+        puntajeLC,
+        puntajeMA,
+        puntajeSC,
+        puntajeIN,
+      },
+      {
+        headers: {
+        'X-CSRFToken': cookieStorage.getItem('csrftoken') || ""
+      }
+    }
+    ).then((res) => {
+      console.log({res})
+      this.puntajePonderado = res.data;
+    })
+    .catch((err) => console.error(err))
+  }
+  
   render() {
     return (
       <div class="container">
         <div>
-          <h2>¿A qué carrera paso?</h2><br/>
-          <p>A continuación ingrese su puntaje obtenido por cada competencia:</p><br/>
+          <h2 class="titleG">¿Paso a la carrera que quiero?</h2><br/>
+          <h5>A continuación seleccione ingrese su puntaje obtenido por cada competencia y la carrera de su preferencia:</h5>
         </div>
-        
-        <form class="needs-validation" novalidate>
+        <br/>
+        <form class="needs-validation" className="PuntajeViewSet">
           <div class="form-row">
             <div class="col-md-1 mb-1">
               <label for="puntajeCN">CN</label>
@@ -46,28 +84,38 @@ class Stuff extends Component {
                 Por favor ingrese un valor numérico
               </div>
             </div>
-            <button class="btn btn-primary botonClic" type="submit" id="oraculo">¿Paso?</button>
+            
+            <button class="btn btn-primary paso" id="oraculo" onClick={this.handleSubmit}>¿Paso?</button>
           </div>
         </form>
+        {this.puntajePonderado
+          ? <p>El puntaje ponderado es {this.puntajePonderado}.</p>
+          : <></>
+        }
+        <br/>
+        <div class="container">                                         
+            <div class="dropdown botonDrop">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Seleccionar carrera
+              <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="#">HTML</a></li>
+                <li><a href="#">CSS</a></li>
+                <li><a href="#">JavaScript</a></li>
+              </ul>
+            </div>
+        </div>
 
         <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function() {
+          
           'use strict',
           window.addEventListener('load', function() {
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
             var forms = document.getElementsByClassName('needs-validation');
             // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-              form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                  event.preventDefault();
-                  event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-              }, false);
-            });
           }, false)
+          
         })();
         </script>
       </div>
