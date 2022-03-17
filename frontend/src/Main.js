@@ -17,7 +17,7 @@ class Main extends Component {
       <HashRouter>
         <div>
         <div>
-          <h1><img src={logo} alt="SIU" width="200" height="200"/> SIU: La guía para el primíparo</h1>
+          <h1 class="titleG"><img src={logo} alt="SIU" width="200" height="200"/> SIU: La guía para el primíparo</h1>
         </div>
           <ul className="header">
             <li><NavLink exact to="/">Inicio</NavLink></li>
